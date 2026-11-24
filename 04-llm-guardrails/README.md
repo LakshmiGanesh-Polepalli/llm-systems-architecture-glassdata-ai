@@ -27,8 +27,6 @@ flowchart LR
 
 ### Live Run Logs (`gateway.py` + `guardrails.py`)
 
-*(Replace the JSON snippets below with your actual terminal output/screenshot from running both servers)*
-
 **1. Passing Request (PII Redacted + Gateway Failover):**
 ```json
 {
@@ -45,15 +43,6 @@ flowchart LR
     "cost_usd": 0.0002,
     "remaining_budget_usd": 24.9998
   }
-}
-```
-
-**2. Blocked Prompt Injection:**
-```json
-{
-  "status": "blocked",
-  "stage": "input_rail",
-  "reason": "Blocked by Input Rail (Prompt Injection matched: 'ignore (all )?previous instructions')"
 }
 ```
   "status": "blocked",
