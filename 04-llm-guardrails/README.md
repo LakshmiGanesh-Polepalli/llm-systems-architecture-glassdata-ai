@@ -36,13 +36,14 @@ flowchart LR
   "pii_redacted": true,
   "response": "[Fallback:openrouter/llama-3.1-8b] Response to: My email is [REDACTED_EMAIL], explain LoRA rank.",
   "gateway_meta": {
-    "req_id": "a1b2c3d4",
+    "req_id": "f4569305",
     "provider": "openrouter/fallback",
     "fallback_triggered": true,
     "cache_hit": false,
-    "latency_ms": 2004.12,
-    "est_tokens": 22,
-    "cost_usd": 0.0002
+    "latency_ms": 598.5,
+    "est_tokens": 17,
+    "cost_usd": 0.0002,
+    "remaining_budget_usd": 24.9998
   }
 }
 ```
@@ -50,6 +51,11 @@ flowchart LR
 **2. Blocked Prompt Injection:**
 ```json
 {
+  "status": "blocked",
+  "stage": "input_rail",
+  "reason": "Blocked by Input Rail (Prompt Injection matched: 'ignore (all )?previous instructions')"
+}
+```
   "status": "blocked",
   "stage": "input_rail",
   "reason": "Blocked by Input Rail (Prompt Injection matched: 'ignore (all )?previous instructions')"
