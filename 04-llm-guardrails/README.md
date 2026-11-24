@@ -45,6 +45,10 @@ flowchart LR
   }
 }
 ```
+
+**2. Blocked Prompt Injection:**
+```json
+{
   "status": "blocked",
   "stage": "input_rail",
   "reason": "Blocked by Input Rail (Prompt Injection matched: 'ignore (all )?previous instructions')"
