@@ -14,11 +14,11 @@ flowchart LR
 ```
 
 ### Architecture & Design Choices
-* **When to Fine-Tune vs. RAG / Prompting:** Use RAG for changing facts and prompting for general reasoning. Use QLoRA when enforcing strict output structure, domain syntax (e.g., compilable C++), or distilling behavior into a smaller model.
-* **Data & Loss Masking:** Formatted examples in ChatML and masked prompt tokens (`labels = -100`) so cross-entropy loss only updates on assistant completions.
+* **When to Fine-Tune vs. RAG / Prompting:** Use RAG for altering facts and for general reasoning via prompting. Use QLoRA when you need to enforce a strict output format, when you're dealing with domain specific syntax (e.g. compilable C++) or when you're trying to distil the behaviour down into a smaller model.
+* **Data & Loss Masking:** Formatted examples in ChatML and masked prompt tokens (labels = -100) so that the cross-entropy loss only applies to the assistant completions.
 * **LoRA Placement:** Froze base weights $W_0$ and injected low-rank adapters ($h = W_0x + \frac{\alpha}{r}BAx$, $r=16, \alpha=32$) across **all linear projections** (`q/k/v/o_proj` + `gate/up/down_proj`), matching full fine-tuning quality better than attention-only adapters.
 * **QLoRA Memory Stack:** Used 4-bit NF4 base weights, double quantization (quantizing scaling constants to FP8), and paged 8-bit AdamW optimizers to fit a 7B run inside a single 14.5 GB Tesla T4 without OOMs.
-* **Deployment Trade-Off:** Merge adapters into FP16 weights for zero inference overhead on single-tenant endpoints; keep adapters unmerged on vLLM/LoRAX when serving multiple tenants off one base model.
+* **Deployment Trade-Off:** Merge adapters into the FP16 weights for zero inference overhead on single tenant endpoints. Leave adapters unmerged on vLLM/LoRAX when serving multiple tenants off a single base model.
 
 | Approach | 7B VRAM | Trainable Params | Inference Overhead | Best Fit |
 | :--- | :--- | :--- | :--- | :--- |
